@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="group_partner_exchange_rate" model="res.groups">
+            <field name="name">Partner Exchange Rate</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+        </record>
+        <record model="ir.rule" id="record_partner_exchange_rate_rule">
+            <field name="name">Partner Exchange Rate: multi-company</field>
+            <field name="model_id" ref="model_partner_exchange_rate"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit.difference</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='group2']" position="after">
+                    <field name="currency_name" invisible="1"/>
+                    <group string="Partner Exchange" groups="advicts_auto_difference_exchange.group_partner_exchange_rate" invisible="partner_type != 'customer' or is_internal_transfer or payment_type != 'inbound' or currency_name != 'IQD'">
+                        <field name="partner_exchange_rate_id"/>
+                        <field name="exchange_rate" invisible="not partner_exchange_rate_id"/>
+                        <field name="exchange_rate_difference" invisible="not partner_exchange_rate_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_payment_register_form" model="ir.ui.view">
+            <field name="name">account.payment.register.form.inherit.difference</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='group2']" position="after">
+                    <field name="currency_name" invisible="1"/>
+                    <group string="Partner Exchange" groups="advicts_auto_difference_exchange.group_partner_exchange_rate" invisible="partner_type != 'customer' or payment_type != 'inbound' or currency_name != 'IQD'">
+                        <field name="partner_exchange_rate_id"/>
+                        <field name="exchange_rate" invisible="not partner_exchange_rate_id"/>
+                        <field name="exchange_rate_difference" invisible="not partner_exchange_rate_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
